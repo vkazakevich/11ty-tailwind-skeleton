@@ -4,9 +4,9 @@ Skeleton for 11ty + Tailwind CSS, which includes everything you need to create s
 
 ## Technologies
 
-- 11ty
-- Tailwind CSS
-- PostCSS
+- [11ty](https://www.11ty.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [PostCSS](https://postcss.org/)
 
 ## Quickstart
 
