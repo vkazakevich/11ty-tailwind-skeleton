@@ -21,10 +21,16 @@ const postcssFilter = (cssCode, done) => {
 };
 
 module.exports = function (config) {
-  config.addPassthroughCopy("src/favicon.ico");
+  config.addCollection("sitemap", (collectionApi) => {
+    return collectionApi.getFilteredByGlob(["src/*.njk"]);
+  });
 
-	config.addWatchTarget('./src/_includes/styles/main.css');
-	config.addNunjucksAsyncFilter('postcss', postcssFilter);
+  ["src/robots.txt", "src/images"].forEach((path) =>
+    config.addPassthroughCopy(path)
+  );
+
+  config.addWatchTarget("./src/_includes/styles/main.css");
+  config.addNunjucksAsyncFilter("postcss", postcssFilter);
 
   config.addTransform("htmlmin", function (content) {
     if (this.outputPath && this.outputPath.endsWith(".html")) {
@@ -37,6 +43,10 @@ module.exports = function (config) {
     }
 
     return content;
+  });
+
+  config.addFilter("dateISO", (value) => {
+    return value.toISOString().split("T")[0];
   });
 
   return {
